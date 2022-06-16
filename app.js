@@ -10,6 +10,9 @@ const morgan = require('morgan');
 const compression = require('compression');
 const dotenv = require('dotenv').config();
 
+
+const sequelize = require('./utils/database');
+const User = require('./models/user');
 const logReq = require('./utils/logger');
 const errorHandling = require('./middlewares/errorHandling');
 
@@ -41,6 +44,7 @@ app.set('views', 'views');
 
 // Importing routes
 const homeRoutes = require('./routes/home');
+const authRoutes = require('./routes/auth');
 const peopleRoutes = require('./routes/people');
 
 
@@ -55,6 +59,7 @@ app.use(express.json());
 
 // Using routes middleware
 app.use(homeRoutes);
+app.use(authRoutes);
 app.use(peopleRoutes);
 
 
@@ -65,6 +70,9 @@ app.use(logReq.errorLogger);
 // Error handling middlewares
 app.use(errorHandling.notFound);
 app.use(errorHandling.errorHandler);
+
+const dbSync = require('./utils/dbSync');
+dbSync.dbSync()
 
 
 // Creating server
