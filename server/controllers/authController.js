@@ -15,7 +15,7 @@ exports.getUsers = (req, res, next) => {
         .then((users) => {
             res.status(200).send(users);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(`Error queriing database - ${err}`));
 
 }
 
@@ -93,7 +93,7 @@ exports.login = (req, res, next) => {
                         userId: user.dataValues.id,
                         email: user.dataValues.email,
                         role: user.dataValues.role
-                    }, 'nekisupertajnikljuc', {
+                    }, process.env.SECRET_KEY, {
                         expiresIn: '1h'
                     })
 

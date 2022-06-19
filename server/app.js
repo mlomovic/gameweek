@@ -37,15 +37,15 @@ app.use(logReq.logger);
 
 
 // Setting templateing engine and view folder
-app.set('view engine', 'ejs');
-app.set('views', 'views');
+// app.set('view engine', 'ejs');
+// app.set('views', 'views');
 
 
 
 // Importing routes
-const homeRoutes = require('./routes/home');
+// const homeRoutes = require('./routes/home');
 const authRoutes = require('./routes/auth');
-const peopleRoutes = require('./routes/people');
+// const peopleRoutes = require('./routes/people');
 
 
 
@@ -56,7 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
 // Have Node serve the files for our built React app
-app.use(express.static(path.resolve(__dirname, '../client/build')));
+// app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 // Handle GET requests to /api route
 app.get("/api", (req, res) => {
@@ -64,16 +64,16 @@ app.get("/api", (req, res) => {
 });
 
 // All other GET requests not handled before will return our React app
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+// });
 
-/*
+
 // Using routes middleware
-app.use(homeRoutes);
+//app.use(homeRoutes);
 app.use(authRoutes);
-app.use(peopleRoutes);
-*/
+//app.use(peopleRoutes);
+
 
 // express-winston errorLogger makes sense AFTER the router.
 app.use(logReq.errorLogger);
