@@ -4,8 +4,9 @@
   "description": "soccer results prediction with detailed info about league, games, players and clubs.",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js",
+    "build": "cd client && npm install && npm run build"
   },
   "keywords": [
     "gameweek",
