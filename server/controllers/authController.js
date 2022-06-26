@@ -34,6 +34,8 @@ exports.addUser = (req, res, next) => {
             } else {
 
                 User.create({
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
                     username: req.body.username,
                     email: req.body.email,
                     password: bcrypt.hashSync(req.body.password, salt),
