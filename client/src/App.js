@@ -1,16 +1,29 @@
-
-import './App.css';
-import Axios from 'axios';
+import "./App.css";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Login from "./pages/Login";
+import ErrorPage from "./pages/ErrorPage";
+import Header from "./components/Header";
+import { useEffect } from 'react';
+import { myPromise, cgData } from "./utils/data";
+import { useDispatch, useSelector } from 'react-redux';
+import { setFixtures } from './features/fixtures/fixturesSlice';
 
 function App() {
-  const loadData = () => {
-    Axios.get('http://localhost:3001/api');
+  const path = useSelector((state) => state.path);
 
-  }
+
   return (
-    <div className="App" onClick={loadData}>
-      BLA CLICK
-    </div>
+    <>
+      <Header />
+      <main>
+        {path == '' && <Home />}
+        {path == '/about' && <About />}
+        {path == '/login' && <Login />}
+      </main>
+      <footer> Foooter </footer>
+    </>
+
   );
 }
 
