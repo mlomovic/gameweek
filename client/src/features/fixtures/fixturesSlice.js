@@ -1,43 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { myPromise } from "../../utils/data";
+import axios from 'axios';
 
-const initialState = [
-    {
-        team1: {
-            name: 'Crystal Palace',
-            shortName: 'Cry',
-            logoUrl: 'https://resources.premierleague.com/premierleague/badges/25/t31.png'
-        },
-        team2: {
-            name: 'Arsenal',
-            shortName: 'Ars',
-            logoUrl: 'https://resources.premierleague.com/premierleague/badges/25/t3.png'
-        }
-    },
-    {
-        team1: {
-            name: 'Fulham',
-            shortName: 'Ful',
-            logoUrl: 'https://resources.premierleague.com/premierleague/badges/25/t54.png'
-        },
-        team2: {
-            name: 'Liverpool',
-            shortName: 'Liv',
-            logoUrl: 'https://resources.premierleague.com/premierleague/badges/25/t14.png'
-        }
-    }
-];
+export const fetchFixtures = createAsyncThunk(
+    'fixtures/fetchFixtures',
+    async () => {
+        const response = await myPromise;
+        return response;
+    });
+
+const initialState = {
+    value: [],
+    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+    error: null
+};
 
 export const fixturesSlice = createSlice({
     name: 'fixtures',
     initialState,
-    reducers: {
-        setFixtures: (state, action) => {
-            state = [...action.payload]
-        }
+    extraReducers: (builder) => {
+        // Add reducers for additional action types here, and handle loading state as needed
+        builder.addCase(fetchFixtures.pending, (state, action) => {
+            state.status = 'loading';
+        });
+        builder.addCase(fetchFixtures.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.value = action.payload;
+        });
+        builder.addCase(fetchFixtures.rejected, (state, action) => {
+            state.status = 'failed';
+            state.error = action.error.message;
+
+        });
     }
 });
-
-// Action creators are generated for each case reducer function
-export const { setFixtures } = fixturesSlice.actions;
 
 export default fixturesSlice.reducer;

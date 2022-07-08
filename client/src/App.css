@@ -38,6 +38,15 @@ main {
     text-align: center;
 }
 
+.loading-wrapper {
+    padding: 20px;
+    text-align: center;
+    height: 200px;
+    animation-name: loading-animation;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
 .current-gameweek-row {
     display: grid;
     align-items: center;
@@ -201,5 +210,21 @@ footer {
     header {
         grid-template-columns: 40px 1fr 90px;
 
+    }
+}
+
+
+
+@keyframes loading-animation {
+    0% {
+        border-top: 5px solid #ff2882;
+    }
+
+    50% {
+        border-top: 5px solid #1c021f;
+    }
+
+    100% {
+        border-top: 5px solid #ff2882;
     }
 }
